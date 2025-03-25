@@ -14,7 +14,7 @@ Vagrant.configure("2") do |config|
     config.ssh.insert_key = false
     # Prevent Vagrant from checking for box updates to speed up startup
     config.vm.box_check_update = false
-  
+
     # Configure VirtualBox-specific settings
     config.vm.provider "virtualbox" do |v|
       # Set a descriptive VM name in the VirtualBox GUI
@@ -22,15 +22,14 @@ Vagrant.configure("2") do |config|
       # Skip guest additions check to speed up boot time
       v.check_guest_additions = false
     end
-  
+
     # Run initial system update
     config.vm.provision "shell",
       inline: "sudo apt-get update"
-  
+
     # Execute the main provisioning script
     config.vm.provision "shell",
       path: "./scripts/base_provision.sh",
       privileged: true  # Run as root (sudo)
-  
+
   end
-  
