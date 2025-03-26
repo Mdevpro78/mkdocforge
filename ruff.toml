@@ -1,0 +1,205 @@
+# Exclude a variety of commonly ignored directories.
+exclude = [
+  ".bzr",
+  ".direnv",
+  ".eggs",
+  ".git",
+  ".git-rewrite",
+  ".hg",
+  ".mypy_cache",
+  ".nox",
+  ".pants.d",
+  ".pytype",
+  ".ruff_cache",
+  ".svn",
+  ".tox",
+  ".venv",
+  "__pypackages__",
+  "_build",
+  "buck-out",
+  "build",
+  "dist",
+  "node_modules",
+  "venv",
+  "__init__.py",
+]
+
+cache-dir = "./.ruff_cache"
+
+# Group violations by containing file.
+output-format = "concise"
+
+src = ["src", "test"]
+
+# Enumerate all fixed violations.
+show-fixes = true
+
+# Same as Black.
+line-length = 66
+indent-width = 4
+
+# Assume Python 3.11
+target-version = "py311"
+
+[lint]
+# Enable Ruff's rules
+select = [
+  # pycodestyle
+  "E",
+  # pycodestyle warnings
+  "W",
+  # Pyflakes
+  "F",
+  # pyupgrade
+  "UP",
+  # flake8-bugbear
+  "B",
+  # flake8-simplify
+  "SIM",
+  # isort
+  "I",
+  # flake8-quotes
+  "Q",
+  # pep8-naming
+  "N",
+  # pydocstyle
+  "D",
+  # flake8-comprehensions
+  "C4",
+  # flake8-annotations
+  "ANN",
+  # flake8-async
+  "ASYNC",
+  # unused arguments in functions
+  "ARG001",
+  # flake8-import-conventions
+  "ICN",
+  # pyupgrade
+  "UP",
+  # Ruff-specific rules
+  "RUF",
+]
+
+# Ignore specific PEP 8 warnings for indentation and spacing
+ignore = [
+  # W191: indentation contains tabs
+  "W191",
+  # E111: indentation is not a multiple of four
+  "E111",
+  # E114: indentation is not a multiple of four (continued)
+  "E114",
+  # E117: over-indented block
+  "E117",
+  # D206: missing docstring in public module
+  "D206",
+  # D300: use type annotations instead of comments for types
+  "D300",
+  # Q000-Q003: various quality gate issues
+  "Q000",
+  "Q001",
+  "Q002",
+  "Q003",
+  # COM812, COM819: various comment-related issues
+  "COM812",
+  "COM819",
+  # ISC001, ISC002: various import sorting issues
+  "ISC001",
+  "ISC002",
+  # D203-D213: various docstring-related issues
+  "D203",
+  "D211",
+  "D212",
+  "D213",
+  # ANN001-ANN003: various annotation-related issues
+  "ANN001",
+  "ANN002",
+  "ANN003",
+  # D100, D401, D404, D205, D210, D417: various docstring and annotation issues
+  "D100",
+  "D401",
+  "D404",
+  "D205",
+  "D210",
+  "D417",
+  # SIM117: similar line in nearby lines
+  "SIM117",
+  # I001: invalid import order
+  "I001",
+  # line too long, handled by black
+  "E501",
+  # do not perform function calls in argument defaults
+  "B008",
+  # Allow raising exceptions without from e, for HTTPException
+  "B904",
+]
+
+# Allow fix for all enabled rules (when `--fix`) is provided.
+fixable = ["ALL"]
+unfixable = []
+
+# Allow unused variables when underscore-prefixed.
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+# Ignore `E402` (import violations) in all `__init__.py` files, and in select subdirectories.
+[lint.per-file-ignores]
+"__init__.py" = ["E402"]
+"**/{tests,docs,tools}/*" = ["E402"]
+
+[lint.flake8-errmsg]
+max-string-length = 20
+
+[lint.flake8-pytest-style]
+parametrize-names-type = "csv"
+parametrize-values-row-type = "tuple"
+parametrize-values-type = "tuple"
+
+[lint.flake8-type-checking]
+exempt-modules = ["typing", "typing_extensions"]
+
+[lint.flake8-unused-arguments]
+ignore-variadic-names = true
+
+[lint.pycodestyle]
+max-doc-length = 66
+
+[lint.pydocstyle]
+convention = "pep257"
+
+[lint.isort]
+force-single-line = false
+force-wrap-aliases = false
+lines-after-imports = -1
+lines-between-types = 0
+split-on-trailing-comma = false
+
+[lint.pylint]
+max-args = 5
+max-bool-expr = 5
+max-branches = 5
+max-locals = 7
+max-nested-blocks = 4
+max-positional-args = 5
+
+[lint.mccabe]
+# Flag errors (`C901`) whenever the complexity level exceeds 5.
+max-complexity = 5
+
+[lint.pyupgrade]
+keep-runtime-typing = true
+
+[lint.ruff]
+# Make it a violation to use a tuple in a subscript without parentheses.
+parenthesize-tuple-in-subscript = true
+
+[format]
+# Like Black, use double quotes for strings.
+quote-style = "double"
+
+# Like Black, indent with spaces, rather than tabs.
+indent-style = "space"
+
+# Like Black, respect magic trailing commas.
+skip-magic-trailing-comma = false
+
+# Like Black, automatically detect the appropriate line ending.
+line-ending = "lf"

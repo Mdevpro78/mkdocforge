@@ -1,0 +1,36 @@
+
+# MDFormat configuration for MkDocs compatibility
+
+# Top-level configuration (don't use 'mdformat' section)
+wrap = "no"
+number = true
+end_of_line = "lf"
+validate = true
+
+# Plugin configuration
+plugin.gfm.enable = true
+plugin.frontmatter.enable = true
+plugin.mkdocs.enable = true
+plugin.mkdocs.align_semantic_breaks_in_lists = true
+plugin.mkdocs.ignore_missing_references = true
+plugin.footnote.enable = true
+plugin.tables.enable = true
+plugin.toc.enable = true
+plugin.toc.depth = 4
+plugin.myst.enable = true
+plugin.gfm_alerts.enable = true
+plugin.config.enable = true
+plugin.simple_breaks.enable = true
+plugin.web.enable = true
+
+# Code formatter plugins
+plugin.beautysh.enable = true
+plugin.beautysh.indent_size = 4
+
+plugin.black.enable = true
+plugin.black.line_length = 88
+
+plugin.ruff.enable = true
+plugin.ruff.line_length = 88
+plugin.ruff.select = ["E", "F", "W"]
+plugin.ruff.ignore = ["ANN101"]

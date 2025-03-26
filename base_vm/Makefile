@@ -17,7 +17,7 @@ clean:
 test: vagrant-up
 	@echo "🔧 Validate Vagrantfile..."
 	vagrant validate
-	
+
 # Vagrant Operations Makefile
 # For Ubuntu Docker Development Environment
 
