@@ -212,6 +212,23 @@ repos:
         name: "📋 toml · Lint TOML files with taplo"
         # Validates TOML files for errors and style issues
 
+  #########################################
+  # Makefile Validation
+  #########################################
+  - repo: https://github.com/mrtazz/checkmake.git
+    # Makefile linter
+    rev: 0.2.2
+    hooks:
+      - id: checkmake
+        name: "🐮 Makefile · Lint Makefile"
+        # Validates Makefile structure and conventions
+        # No clear documentation on how to skip certain checks.
+        # Fixed as many as I could, but best option is to ignore the file.
+        exclude: |
+          (?x)^(
+            .*\{\{.*\}\}.*|
+          )$
+
 
 # Set default Python version for all hooks
 default_language_version:
