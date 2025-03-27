@@ -183,8 +183,10 @@ repos:
     rev: v0.17.2
     hooks:
       - id: markdownlint-cli2
+        name: "📝 markdown · Lint markdown with markdownlint"
         args: [--fix]
         exclude: ^CHANGELOG
+        # Lints markdown files for style and consistency issues
 
   #########################################
   # YAML File Validation
@@ -193,7 +195,9 @@ repos:
     rev: v1.37.0
     hooks:
       - id: yamllint
+        name: "📋 yaml · Lint YAML files with yamllint"
         args: [--strict, -c=./.yamllint.yaml]
+        # Validates YAML files for style and syntax issues
 
   #########################################
   # A pre-commit hook to format and lint TOML files
@@ -202,7 +206,11 @@ repos:
     rev: v0.9.3
     hooks:
       - id: taplo-format
+        name: "📋 toml · Format TOML files with taplo"
+        # Formats TOML files for consistency
       - id: taplo-lint
+        name: "📋 toml · Lint TOML files with taplo"
+        # Validates TOML files for errors and style issues
 
 
 # Set default Python version for all hooks
