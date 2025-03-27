@@ -113,7 +113,7 @@ repos:
       - id: add-trailing-comma
         name: "🔤 python · Add trailing commas"
         # Makes future diffs cleaner and multiline constructs more consistent
-  
+
   #########################################
   # API Documentation Validation
   #########################################
@@ -135,6 +135,55 @@ repos:
         name: "🐍 python · Validate pyproject.toml"
         additional_dependencies: ["validate-pyproject-schema-store[all]"]
         # Ensures pyproject.toml follows PEP specifications
+
+  #########################################
+  # Documentation Formatting
+  #########################################
+  - repo: https://github.com/hukkin/mdformat
+    # Markdown formatter for consistent documents
+    rev: 0.7.22
+    hooks:
+      - id: mdformat
+        name: "📝 markdown · Format markdown"
+        # Formats markdown files for consistency
+        exclude: |
+          (?x)^(
+            .*\{\{.*\}\}.*
+          )$
+        entry: mdformat
+        language: python
+        types: [markdown]
+        verbose: true
+        log_file: .logs/mdformat.log
+        fail_fast: false
+        files: \.(md|markdown)$
+        args:
+          - "--wrap=no"  # Wrap lines at 80 characters (customize as needed)
+          - "--end-of-line=lf"  # Use LF line endings (Unix-style, recommended for consistency)
+          # - "--check"  # Exit with error if formatting changes are needed
+        additional_dependencies:
+          - mdformat-gfm==0.4.1  # GitHub Flavored Markdown support
+          - mdformat-mkdocs[recommended]==4.1.2  # MkDocs-specific formatting
+          - mdformat-frontmatter==2.0.8  # YAML frontmatter support
+          - mdformat-footnote==0.1.1  # Footnote support
+          - mdformat-tables==1.0.0  # Table formatting
+          - mdformat-toc==0.3.0  # Table of contents formatting
+          - mdformat-beautysh==0.1.1  # Shell code block formatting
+          - mdformat-black==0.1.1  # Python code block formatting
+          - mdformat-gfm-alerts==1.0.1  # GitHub-style alerts
+          - mdformat-myst==0.2.1  # MyST Markdown support
+          - mdformat-config==0.2.1  # Configuration file parsing
+          - mdformat-ruff==0.1.3  # Ruff linting for Python code blocks
+          - mdformat-web==0.2.0  # Web-related Markdown formatting
+          - mdformat-simple-breaks==0.0.1  # Consistent line break handling
+          - ruff
+
+  #########################################
+  - repo: https://github.com/DavidAnson/markdownlint-cli2
+    rev: v0.17.2
+    hooks:
+      - id: markdownlint-cli2
+
 
 # Set default Python version for all hooks
 default_language_version:
