@@ -193,6 +193,15 @@ repos:
       - id: yamllint
         args: [--strict, -c=./.yamllint.yaml]
 
+  #########################################
+  # A pre-commit hook to format and lint TOML files
+  #########################################
+  - repo: https://github.com/ComPWA/taplo-pre-commit
+    rev: v0.9.3
+    hooks:
+      - id: taplo-format
+      - id: taplo-lint
+
 
 # Set default Python version for all hooks
 default_language_version:

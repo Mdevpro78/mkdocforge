@@ -29,7 +29,7 @@ cache-dir = "./.ruff_cache"
 # Group violations by containing file.
 output-format = "concise"
 
-src = ["src", "test"]
+src = [ "src", "test" ]
 
 # Enumerate all fixed violations.
 show-fixes = true
@@ -134,62 +134,62 @@ ignore = [
 ]
 
 # Allow fix for all enabled rules (when `--fix`) is provided.
-fixable = ["ALL"]
-unfixable = []
+fixable = [ "ALL" ]
+unfixable = [  ]
 
 # Allow unused variables when underscore-prefixed.
 dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
 
-# Ignore `E402` (import violations) in all `__init__.py` files, and in select subdirectories.
-[lint.per-file-ignores]
-"__init__.py" = ["E402"]
-"**/{tests,docs,tools}/*" = ["E402"]
+  # Ignore `E402` (import violations) in all `__init__.py` files, and in select subdirectories.
+  [lint.per-file-ignores]
+  "__init__.py" = [ "E402" ]
+  "**/{tests,docs,tools}/*" = [ "E402" ]
 
-[lint.flake8-errmsg]
-max-string-length = 20
+  [lint.flake8-errmsg]
+  max-string-length = 20
 
-[lint.flake8-pytest-style]
-parametrize-names-type = "csv"
-parametrize-values-row-type = "tuple"
-parametrize-values-type = "tuple"
+  [lint.flake8-pytest-style]
+  parametrize-names-type = "csv"
+  parametrize-values-row-type = "tuple"
+  parametrize-values-type = "tuple"
 
-[lint.flake8-type-checking]
-exempt-modules = ["typing", "typing_extensions"]
+  [lint.flake8-type-checking]
+  exempt-modules = [ "typing", "typing_extensions" ]
 
-[lint.flake8-unused-arguments]
-ignore-variadic-names = true
+  [lint.flake8-unused-arguments]
+  ignore-variadic-names = true
 
-[lint.pycodestyle]
-max-doc-length = 66
+  [lint.pycodestyle]
+  max-doc-length = 66
 
-[lint.pydocstyle]
-convention = "pep257"
+  [lint.pydocstyle]
+  convention = "pep257"
 
-[lint.isort]
-force-single-line = false
-force-wrap-aliases = false
-lines-after-imports = -1
-lines-between-types = 0
-split-on-trailing-comma = false
+  [lint.isort]
+  force-single-line = false
+  force-wrap-aliases = false
+  lines-after-imports = -1
+  lines-between-types = 0
+  split-on-trailing-comma = false
 
-[lint.pylint]
-max-args = 5
-max-bool-expr = 5
-max-branches = 5
-max-locals = 7
-max-nested-blocks = 4
-max-positional-args = 5
+  [lint.pylint]
+  max-args = 5
+  max-bool-expr = 5
+  max-branches = 5
+  max-locals = 7
+  max-nested-blocks = 4
+  max-positional-args = 5
 
-[lint.mccabe]
-# Flag errors (`C901`) whenever the complexity level exceeds 5.
-max-complexity = 5
+  [lint.mccabe]
+  # Flag errors (`C901`) whenever the complexity level exceeds 5.
+  max-complexity = 5
 
-[lint.pyupgrade]
-keep-runtime-typing = true
+  [lint.pyupgrade]
+  keep-runtime-typing = true
 
-[lint.ruff]
-# Make it a violation to use a tuple in a subscript without parentheses.
-parenthesize-tuple-in-subscript = true
+  [lint.ruff]
+  # Make it a violation to use a tuple in a subscript without parentheses.
+  parenthesize-tuple-in-subscript = true
 
 [format]
 # Like Black, use double quotes for strings.
