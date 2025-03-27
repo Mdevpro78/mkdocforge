@@ -184,6 +184,15 @@ repos:
     hooks:
       - id: markdownlint-cli2
 
+  #########################################
+  # YAML File Validation
+  #########################################
+  - repo: https://github.com/adrienverge/yamllint.git
+    rev: v1.37.0
+    hooks:
+      - id: yamllint
+        args: [--strict, -c=./.yamllint.yaml]
+
 
 # Set default Python version for all hooks
 default_language_version:
