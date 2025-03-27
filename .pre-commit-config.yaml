@@ -229,6 +229,15 @@ repos:
             .*\{\{.*\}\}.*|
           )$
 
+  #########################################
+  # Scanning Hardcoded Secrets
+  #########################################
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.24.2
+    hooks:
+      - id: gitleaks
+        name: "🔒 security · Scan for hardcoded secrets"
+        # Detects and prevents secrets from being committed
 
 # Set default Python version for all hooks
 default_language_version:
