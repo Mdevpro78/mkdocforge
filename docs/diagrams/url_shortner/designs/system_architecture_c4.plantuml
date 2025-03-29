@@ -1,0 +1,80 @@
+@startuml System Architecture
+!include <C4/C4_Context>
+!include <C4/C4_Container>
+
+' Dark mode theme settings
+skinparam backgroundColor #282c34
+skinparam defaultTextAlignment center
+skinparam noteTextAlignment left
+skinparam ArrowColor #abb2bf
+skinparam NoteBorderColor #61afef
+skinparam NoteBackgroundColor #2c323c
+skinparam NoteFontColor #abb2bf
+skinparam Nodesep 100
+skinparam Ranksep 100
+
+
+System_Boundary(url_shortener, "URL Shortening System") {
+    Container_Boundary(frontend, "Frontend") {
+        Container(web_app, "Web Application", "", "")
+        Container(mobile_app, "Mobile App", "", "")
+        Container(admin_dash, "Admin Dashboard", "", "")
+    }
+
+    Container_Boundary(backend, "Backend") {
+        Container(api_gateway, "API Gateway", "", "")
+        Container(url_service, "URL Service", "", "")
+        Container(user_service, "User Service", "", "")
+        Container(analytics_service, "Analytics Service", "", "")
+        Container(rate_limiter, "Rate Limiter", "", "")
+    }
+
+    Container_Boundary(database, "Database") {
+        ContainerDb(url_repo, "URL Repository", "", "")
+        ContainerDb(user_repo, "User Repository", "", "")
+        ContainerDb(analytics_repo, "Analytics Repository", "", "")
+    }
+
+    Container_Boundary(cache, "Cache") {
+        Container(redis_cache, "Redis Cluster", "", "")
+    }
+}
+
+Rel(web_app, api_gateway, "")
+Rel(mobile_app, api_gateway, "")
+Rel(admin_dash, api_gateway, "")
+
+Rel(api_gateway, url_service, "")
+Rel(api_gateway, user_service, "")
+Rel(api_gateway, analytics_service, "")
+Rel(api_gateway, rate_limiter, "")
+
+Rel(url_service, url_repo, "")
+Rel(url_service, redis_cache, "")
+Rel(user_service, user_repo, "")
+Rel(analytics_service, analytics_repo, "")
+Rel(analytics_service, redis_cache, "")
+
+note left of api_gateway
+  Handles authentication,
+  request routing, and
+  rate limiting
+end note
+
+note bottom of redis_cache
+  Stores frequently accessed URLs
+  to reduce database load and
+  improve redirection performance
+end note
+
+note bottom of url_service
+  Core service for URL shortening
+  and redirection operations
+end note
+
+note right of analytics_service
+  Tracks and processes URL usage
+  metrics and user interactions
+end note
+
+@enduml

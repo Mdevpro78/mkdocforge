@@ -1,0 +1,369 @@
+---
+# Main site configuration
+# -----------------------
+site_name: MkDocForge  # Project name displayed in browser and top nav
+site_description: MkDocs Documentation Platform with Advanced Features
+docs_dir: docs                   # Source directory containing markdown files
+site_dir: site                   # Output directory for the built site
+extra_css:
+  - static/stylesheets/extra.css        # Custom CSS for additional styling
+
+# Theme configuration (Material theme)
+# -----------------------------------
+# noinspection YAMLDuplicatedKeys
+theme:
+  name: "material"              # Using Material for MkDocs theme
+  language: en                   # Site language
+  icon:
+    logo: material/book-open-variant  # Custom logo icon
+  admonition:
+    note: fontawesome/solid/note-sticky
+    abstract: fontawesome/solid/book
+    info: fontawesome/solid/circle-info
+    tip: fontawesome/solid/bullhorn
+    success: fontawesome/solid/check
+    question: fontawesome/solid/circle-question
+    warning: fontawesome/solid/triangle-exclamation
+    failure: fontawesome/solid/bomb
+    danger: fontawesome/solid/skull
+    bug: fontawesome/solid/robot
+    example: fontawesome/solid/flask
+    quote: fontawesome/solid/quote-left
+  # Color schemes with light/dark mode toggle
+  palette:
+    - scheme: "default"          # Light mode color scheme
+      primary: "pink"            # Primary theme color
+      accent: "red"              # Accent color for interactive elements
+      media: "(prefers-color-scheme: light)"
+      toggle:
+        icon: "material/lightbulb"
+        name: "Switch to dark mode"
+    - scheme: "slate"            # Dark mode color scheme
+      media: "(prefers-color-scheme: dark)"
+      primary: "pink"            # Primary theme color in dark mode
+      accent: "red"              # Accent color in dark mode
+      toggle:
+        icon: "material/lightbulb-outline"
+        name: "Switch to light mode"
+
+  # Branding elements
+  favicon: static/images/favicon.svg # Browser tab icon
+  logo: static/images/library.svg     # Logo in the top nav
+  # Theme features for navigation and content display
+  features:
+    - search.suggest            # Show search suggestions while typing
+    - search.highlight          # Highlight search terms in results
+    - navigation.tracking       # Update URL as user scrolls
+    - navigation.tabs           # Top-level sections as tabs
+    - navigation.path           # Breadcrumbs for hierarchical navigation
+    - navigation.sections       # Render sections as groups in sidebar
+    - navigation.instant        # Load pages without full reload
+    - navigation.instant.prefetch  # Prefetch linked pages for faster navigation
+    - content.tabs.link         # Sync tabs with same labels across page
+    - content.footnote.tooltips
+    - navigation.tabs.sticky    # Keep tabs visible when scrolling
+    - navigation.indexes        # Use index.md as section landing page
+    - navigation.path           # Show navigation path links
+    - navigation.expand
+    - navigation.footer
+    - navigation.instant
+    - navigation.sections
+    - content.code.annotate     # Allow code annotations
+    - content.code.select       # Make code blocks selectable
+    - content.code.copy
+    - content.action.edit
+    - content.tooltips          # Enable hoverable tooltips
+    - toc.follow                # Auto-scroll table of contents
+# Plugins configuration
+# ---------------------
+plugins:
+  - tags
+  - search
+  - blog
+  - meta
+  - section-index
+  - glightbox
+
+  # - git-revision-date-localized  # Add revision dates to pages
+  - neoteroi.mkdocsoad:
+      use_pymdownx: true                  # Enable built-in search functionality
+  # - awesome-pages               # Provides more control over page navigation
+  # - minify:
+  #     minify_html: true
+  #     minify_js: true
+  #     minify_css: true
+  # Template engine for Python macros in markdown
+  - macros:
+      modules: ['includex']     # Python modules to load
+      verbose: true             # Show detailed logs for debugging
+      include_dir: .
+      # Uncomment to customize Jinja2 delimiters
+      # j2_block_start_string: '[[%'
+      # j2_block_end_string: '%]]'
+      # j2_variable_start_string: '[['
+      # j2_variable_end_string: ']]'
+      # j2_comment_start_string: '[#'
+      # j2_comment_end_string: '#]'
+      # on_undefined: keep
+      # render_by_default: false
+      # on_error_fail: false
+
+  # Include content from other markdown files
+  - include-markdown:
+      opening_tag: "[["
+      closing_tag: "]]"
+
+
+  # Doxygen integration for code documentation
+  - mkdoxy:
+      projects:
+        mkdocforge:                  # Project identifier (alphanumeric only)
+          # src-dirs: ./src/      # Source code location
+          src-dirs: ./docs/      # Source code location
+          full-doc: true        # Generate complete API documentation
+          doxy-cfg:             # Doxygen configuration
+            FILE_PATTERNS: "*.py"  # Process only Python files
+            RECURSIVE: true     # Search directories recursively
+            SHOW_NAMESPACES: true  # Include namespace documentation
+
+  # Generate and validate meta descriptions
+  - meta-descriptions:
+      export_csv: false         # Don't export descriptions to CSV
+      quiet: false              # Show processing output
+      enable_checks: false      # Skip length validation
+      min_length: 50            # Minimum description length
+      max_length: 160           # Maximum description length (SEO optimal)
+      trim: false               # Don't trim descriptions
+
+  # Add external data to markdown context
+  - markdownextradata:
+      data: data                # Data directory/file
+
+  # Python API documentation from docstrings
+  - mkdocstrings:
+      handlers:
+        python:                 # Python-specific handler
+          # setup_commands:     # Optional Python commands to run before processing
+          #   - "from plum import dispatch"
+          # paths: [src]         # Paths to search for Python modules
+          options:
+            extensions:
+              - griffe_typingdoc  # Support for typing documentation
+            show_root_heading: true  # Show module name as heading
+            allow_inspection: true   # Allow code inspection
+            show_if_no_docstring: true  # Document even without docstrings
+            show_source: true     # Include source code
+            show_bases: true      # Show base classes
+            show_root_full_path: true  # Display full import path
+            group_by_category: true    # Group members by type
+            show_category_heading: true  # Add category headings
+            inherited_members: true     # Include inherited methods
+            members_order: source       # Order by source code position
+            separate_signature: true    # Show signature separately
+            summary: true              # Include summary
+            unwrap_annotated: true     # Clean up typing annotations
+            filters: []               # Don't filter any members
+            merge_init_into_class: true  # Show __init__ params in class
+            docstring_section_style: spacy  # Section style
+            signature_crossrefs: true      # Link types in signatures
+            show_symbol_type_heading: true  # Show symbol type in headings
+            show_symbol_type_toc: true     # Show symbol types in TOC
+            annotations_path: brief        # Brief type annotations
+            show_signature: true           # Show function signatures
+            show_signature_annotations: true  # Show type annotations
+
+  # PlantUML diagram integration
+  - plantuml:
+      # puml_url: https://www.plantuml.com/plantuml/  # PlantUML server URL
+      puml_url: https://plantuml.online/  # another PlantUML server URL
+      # num_workers: 8            # Parallel processing workers
+      puml_keyword: plantuml    # Keyword for diagram fences
+      request_timeout: 5000     # Timeout in milliseconds
+      verify_ssl: false         # Skip SSL verification
+      verbose: true             # Detailed logging
+      theme:
+        enabled: true           # Enable theming
+        light: default/light    # Light theme
+        dark: default/dark      # Dark theme
+      cache:
+        backend: local          # Cache diagrams locally
+        local:
+          path: "./.cache/mkdocs_puml"  # Cache directory
+          join_project_name: true       # Include project name in cache path
+      interaction:
+        enabled: true           # Enable interactive diagrams
+
+  - mike:
+      # These fields are all optional; the defaults are as below...
+      alias_type: symlink
+      redirect_template: null
+      deploy_prefix: ''
+      canonical_version: null
+      version_selector: true
+      css_dir: css
+      javascript_dir: js
+
+# Navigation structure
+# -------------------
+nav:
+  - Home:
+      - Overview: index.md            # Homepage
+  - Project:
+      - Roadmap: project-roadmap.md
+  - Diagrams:
+      - Overview: diagrams/index.md
+      - URL Shortner:
+          - Overview: diagrams/url_shortner/url_shortner_index.md
+          - PlantUML: diagrams/url_shortner/url_shortner_spec.md
+  - Development:
+      - Overview: developement-hub.md
+      - Git:
+          - Git Workflow Guide: git/git-workflow-guide.md
+      - Python:
+          - Rye: python/rye_commands.md
+          - MyPy Configuration Guide: python/mypy-configuration-guide.md
+          - Documentation Standards: python/documentation-standards.md
+          - Tox Guide: python/tox-testing-guide.md
+          - Pre-commit Configuration: python/pre-commit-config.md
+      - Documentation:
+          - Material Icons Guide: material-icons-guide.md
+          - Material Icons Standardization Plan: material-icons-standardization-plan.md
+      - Docker:
+          - Docker Guide: docker/docker-guide.md
+      - Vagrant:
+          - Vagrant Guide: vagrant/vagrant-guide.md
+          - Docker with Ubuntu 24.04: vagrant/vagrant-docker-ubuntu2404.md
+      - ADR:
+          - Architecture Hub: architecture/architecture-hub.md
+          - Architecture Decisions: architecture/adr-index.md
+          - ADR Template: architecture/adr-template.md
+          - Decisions:
+              - Example Decision: architecture/decisions/adr-0001-example.md
+          - Templates:
+              - Comprehensive Template: architecture/templates/adr-comprehensive-template.md
+              - Template 01: architecture/templates/adr-temp-01.md
+              - Template 02: architecture/templates/adr-temp-02.md
+              - Template 03: architecture/templates/adr-temp-03.md
+              - Template 04: architecture/templates/adr-temp-04.md
+      - Glossary:
+          - Overview: glossary/glossary-hub.md
+          - Technical Glossary: glossary/technical-glossary.md
+          - Business Glossary: glossary/business-glossary.md
+          - Glossary Process: glossary/glossary-process.md
+          - Templates:
+              - Term Template: glossary/templates/glossary-term-template.md
+      - Past Performance:
+          - Overview: past-performance/past-performance-hub.md
+          - Performance Index: past-performance/past-performance-index.md
+          - Templates:
+              - Comprehensive Template: past-performance/templates/past-performance-comprehensive.md
+              - Template 01: past-performance/templates/past-performance-temp-01.md
+              - Template 02: past-performance/templates/past-performance-temp-02.md
+              - Template 03: past-performance/templates/past-performance-temp-03.md
+              - Template 04: past-performance/templates/past-performance-temp-04.md
+      - Community:
+          - Contributing Guide: CONTRIBUTING.md
+          - Code of Conduct: CODE_OF_CONDUCT.md
+  - API:
+      - mkdocforge:
+          - Links: mkdocforge/links.md
+          - Annotated: mkdocforge/annotated.md
+          - Files: mkdocforge/files.md
+          - Namespaces: mkdocforge/namespaces.md
+          - Classes: mkdocforge/classes.md
+          - Hierarchy: mkdocforge/hierarchy.md
+          - Modules: mkdocforge/modules.md
+          - Pages: mkdocforge/pages.md
+          - Class Members: mkdocforge/class_members.md
+          - Member Functions: mkdocforge/class_member_functions.md
+          - Member Variables: mkdocforge/class_member_variables.md
+          - Member Typedefs: mkdocforge/class_member_typedefs.md
+          - Member Enums: mkdocforge/class_member_enums.md
+          - Namespace Members: mkdocforge/namespace_members.md
+          - Namespace Functions: mkdocforge/namespace_member_functions.md
+          - Namespace Variables: mkdocforge/namespace_member_variables.md
+          - Namespace Typedefs: mkdocforge/namespace_member_typedefs.md
+          - Namespace Enums: mkdocforge/namespace_member_enums.md
+          - Functions: mkdocforge/functions.md
+          - Macros: mkdocforge/macros.md
+          - Variables: mkdocforge/variables.md
+
+# URL and rendering configuration
+# ------------------------------
+use_directory_urls: true        # Create clean URLs without .html extension
+
+# Markdown extensions configuration
+# --------------------------------
+markdown_extensions:
+  # Built-in
+  - abbr                        # Abbreviations
+  - tables                      # Tables support
+  - attr_list                   # HTML attributes in markdown
+  - md_in_html
+  - meta
+  - admonition                  # Block-styled side content
+  - extra
+  - def_list
+  - footnotes
+  - toc:                        # Table of contents
+      permalink: true           # Add permanent links to headers
+      toc_depth: 3              # Depth of TOC (h1-h3)
+  - mdx_include:                # Include other markdown files
+      base_path: .              # Base path for includes
+                                # Extra formatting features
+
+  # Emoji support
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+  # Code highlighting
+  - pymdownx.highlight:
+      auto_title: true          # Add language as title
+      anchor_linenums: true     # Add anchors to line numbers
+      use_pygments: true        # Use Pygments highlighter
+      pygments_lang_class: true # Add language class to code
+      linenums: true            # Show line numbers
+      linenums_style: pymdownx-inline  # Inline style for line numbers
+  - pymdownx.inlinehilite       # Inline code highlighting
+
+  # Advanced code fences with diagram support
+  - pymdownx.superfences:
+      preserve_tabs: true       # Keep tab indentation
+      custom_fences:
+        - name: mermaid         # Mermaid diagram support
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+  # Content tabs
+  - pymdownx.tabbed:
+      combine_header_slug: true # Combine header with tab slug
+      alternate_style: true     # Use alternate styling
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem           # Better emphasis
+  - pymdownx.smartsymbols       # Smart symbols conversion
+  - pymdownx.blocks.caption     # Captions for blocks
+  - pymdownx.snippets           # Include snippets from files
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde
+  - pymdownx.details            # Collapsible blocks
+
+  # Custom admonition blocks
+  - pymdownx.blocks.admonition:
+      types:
+        - note                    # Informational notes
+        - attention               # Attention blocks
+        - caution                 # Caution warnings
+        - danger                  # Danger warnings
+        - error                   # Error messages
+        - tip                     # Tips and tricks
+        - hint                    # Hints
+        - warning                 # Warning messages
+        # Custom types
+        - info                    # General information

@@ -1,0 +1,73 @@
+@startuml URL Shortening Process
+
+' Dark mode theme settings
+!include https://raw.githubusercontent.com/patrik-csak/one-dark-plantuml-theme/v1.0.1/theme.puml
+
+' Override default theme settings for better dark mode
+skinparam backgroundColor #282c34
+skinparam defaultTextAlignment center
+skinparam noteTextAlignment left
+skinparam ArrowColor #abb2bf
+skinparam NoteBorderColor #61afef
+skinparam NoteBackgroundColor #2c323c
+skinparam NoteFontColor #abb2bf
+skinparam Nodesep 100
+skinparam Ranksep 100
+skinparam Dpi 96
+skinparam PageMargin 150
+skinparam BoxPadding 150
+
+participant "Client" as Client
+participant "API Gateway" as Gateway
+participant "Auth Service" as Auth
+participant "URL Service" as URLService
+participant "ID Generator" as IDGen
+participant "URL Repository" as URLRepo
+participant "Cache Service" as Cache
+
+Client -> Gateway: POST /api/urls {originalUrl, expirationDate}
+activate Gateway
+
+Gateway -> Auth: validateToken(token)
+activate Auth
+Auth --> Gateway: Valid token + UserInfo
+deactivate Auth
+
+Gateway -> URLService: createShortUrl(originalUrl, userId, expirationDate)
+activate URLService
+
+URLService -> URLService: isUrlValid(originalUrl)
+URLService -> IDGen: generateShortCode()
+activate IDGen
+IDGen --> URLService: shortCode
+deactivate IDGen
+
+URLService -> URLRepo: findByShortCode(shortCode)
+activate URLRepo
+URLRepo --> URLService: Optional<URL>
+deactivate URLRepo
+
+alt shortCode already exists
+    URLService -> IDGen: generateShortCode()
+    activate IDGen
+    IDGen --> URLService: new shortCode
+    deactivate IDGen
+end
+
+URLService -> URLRepo: save(url)
+activate URLRepo
+URLRepo --> URLService: saved URL
+deactivate URLRepo
+
+URLService -> Cache: cacheUrl(url)
+activate Cache
+Cache --> URLService: confirmation
+deactivate Cache
+
+URLService --> Gateway: URL entity
+deactivate URLService
+
+Gateway --> Client: 201 Created + {shortUrl, expirationDate, ...}
+deactivate Gateway
+
+@enduml
