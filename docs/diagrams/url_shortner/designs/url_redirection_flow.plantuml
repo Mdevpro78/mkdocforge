@@ -1,0 +1,83 @@
+@startuml URL Redirection Flow
+
+
+' Dark mode theme settings
+!include https://raw.githubusercontent.com/patrik-csak/one-dark-plantuml-theme/v1.0.1/theme.puml
+
+' Override default theme settings for better dark mode
+skinparam backgroundColor #282c34
+skinparam defaultTextAlignment center
+skinparam noteTextAlignment left
+skinparam ArrowColor #abb2bf
+skinparam NoteBorderColor #61afef
+skinparam NoteBackgroundColor #2c323c
+skinparam NoteFontColor #abb2bf
+skinparam Nodesep 100
+skinparam Ranksep 100
+skinparam Dpi 96
+skinparam PageMargin 150
+skinparam BoxPadding 150
+
+participant "Client" as Client
+participant "API Gateway" as Gateway
+participant "URL Service" as URLService
+participant "Cache Service" as Cache
+participant "URL Repository" as URLRepo
+participant "Analytics Service" as Analytics
+
+Client -> Gateway: GET /{shortCode}
+activate Gateway
+
+Gateway -> URLService: getOriginalUrl(shortCode)
+activate URLService
+
+URLService -> Cache: getUrl(shortCode)
+activate Cache
+Cache --> URLService: Optional<URL>
+deactivate Cache
+
+alt URL not in cache
+    URLService -> URLRepo: findByShortCode(shortCode)
+    activate URLRepo
+    URLRepo --> URLService: Optional<URL>
+    deactivate URLRepo
+
+    alt URL not found
+        URLService --> Gateway: URL not found
+        Gateway --> Client: 404 Not Found
+    else URL found but inactive
+        URLService --> Gateway: URL inactive
+        Gateway --> Client: 410 Gone
+    else URL found and active
+        URLService -> URLRepo: update(url with incrementedClickCount)
+        activate URLRepo
+        URLRepo --> URLService: updated URL
+        deactivate URLRepo
+
+        URLService -> Cache: cacheUrl(url)
+        activate Cache
+        Cache --> URLService: confirmation
+        deactivate Cache
+
+        URLService --> Gateway: originalUrl
+    end
+else URL in cache
+    URLService -> Cache: incrementClickCount(shortCode)
+    activate Cache
+    Cache --> URLService: new count
+    deactivate Cache
+
+    URLService --> Gateway: originalUrl
+end
+
+deactivate URLService
+
+Gateway -> Analytics: recordClick(shortCode, requestInfo)
+activate Analytics
+Analytics --> Gateway: confirmation
+deactivate Analytics
+
+Gateway --> Client: 302 Redirect to originalUrl
+deactivate Gateway
+
+@enduml

@@ -1,0 +1,54 @@
+@startuml URL Lifecycle
+
+' Dark mode theme settings
+!include https://raw.githubusercontent.com/patrik-csak/one-dark-plantuml-theme/v1.0.1/theme.puml
+
+' Override default theme settings for better dark mode
+skinparam backgroundColor #282c34
+skinparam defaultTextAlignment center
+skinparam noteTextAlignment left
+skinparam ArrowColor #abb2bf
+skinparam NoteBorderColor #61afef
+skinparam NoteBackgroundColor #2c323c
+skinparam NoteFontColor #abb2bf
+skinparam Nodesep 100
+skinparam Ranksep 100
+skinparam Dpi 96
+skinparam PageMargin 150
+skinparam BoxPadding 150
+
+[*] --> Created : URL is shortened
+
+Created --> Active : URL is published
+Created --> Inactive : User deactivates before publishing
+
+Active --> Inactive : User deactivates URL
+Active --> Expired : Expiration date reached
+Active --> [*] : URL is deleted
+
+Inactive --> Active : User reactivates URL
+Inactive --> [*] : URL is deleted
+
+Expired --> Active : User extends expiration
+Expired --> [*] : URL is purged after grace period
+
+note right of Created
+  URL is created but
+  not yet active for use
+end note
+
+note right of Active
+  URL is accessible and
+  redirects to original URL
+end note
+
+note right of Inactive
+  URL exists but redirects
+  to an inactive page
+end note
+
+note right of Expired
+  URL has reached its
+  expiration date
+end note
+@enduml

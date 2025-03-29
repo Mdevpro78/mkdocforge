@@ -1,0 +1,79 @@
+/* Make content width 100% compatible with MkDocs */
+.md-grid {
+    max-width: 97% !important;
+}
+
+
+[data-md-color-scheme="default"] div.md-nav__link.md-nav__container > a.md-nav__link > span.md-ellipsis {
+    color: #e91e63 !important; /* Pink color for light mode, matching primary theme color */
+    font-weight: 900 !important;
+    font-size: large !important;
+}
+
+[data-md-color-scheme="slate"] div.md-nav__link.md-nav__container > a.md-nav__link > span.md-ellipsis {
+    color: #ff5983 !important; /* Lighter pink for dark mode for better contrast */
+    font-weight: 900 !important;
+    font-size: large !important;
+}
+
+[data-md-color-scheme="default"] label.md-nav__link[tabindex=""] > span.md-ellipsis {
+    color: #e91e63 !important; /* Pink color for light mode, matching primary theme color */
+    font-weight: 700 !important;
+    font-size: medium !important;
+}
+
+[data-md-color-scheme="slate"] label.md-nav__link[tabindex=""] > span.md-ellipsis {
+    color: #ff5983 !important; /* Lighter pink for dark mode for better contrast */
+    font-weight: 700 !important;
+    font-size: medium !important;
+}
+/* Custom styling for md-ellipsis within md-nav__link with tabindex in both light and dark modes */
+[data-md-color-scheme="default"] label.md-nav__link[tabindex="0"] > span.md-ellipsis {
+    color: #e91e63 !important; /* Pink color for light mode, matching primary theme color */
+}
+
+[data-md-color-scheme="slate"] label.md-nav__link[tabindex="0"] > span.md-ellipsis {
+    color: #ff5983 !important; /* Lighter pink for dark mode for better contrast */
+}
+
+
+/* Additional blurred lighter styling for md-ellipsis within md-nav__link with data-md-level */
+[data-md-color-scheme="default"] label.md-nav__link[data-md-level] > span.md-ellipsis {
+    color: #f48fb1 !important; /* Lighter pink for nested items in light mode */
+    font-weight: 500 !important;
+    text-shadow: 0 0 1px rgba(233, 30, 99, 0.3);
+    transition: color 0.2s ease;
+}
+
+[data-md-color-scheme="slate"] label.md-nav__link[data-md-level] > span.md-ellipsis {
+    color: #ff80ab !important; /* Lighter pink for nested items in dark mode */
+    font-weight: 500 !important;
+    text-shadow: 0 0 1px rgba(255, 89, 131, 0.3);
+    transition: color 0.2s ease;
+}
+
+/* Hover effect for items with data-md-level */
+[data-md-color-scheme="default"] label.md-nav__link[data-md-level]:hover > span.md-ellipsis {
+    color: #e91e63 !important; /* Return to original color on hover */
+    text-shadow: 0 0 2px rgba(233, 30, 99, 0.4);
+}
+
+[data-md-color-scheme="slate"] label.md-nav__link[data-md-level]:hover > span.md-ellipsis {
+    color: #ff5983 !important; /* Return to original color on hover */
+    text-shadow: 0 0 2px rgba(255, 89, 131, 0.4);
+}
+
+/* Blue neon effect for active navigation links */
+[data-md-color-scheme="default"] .md-nav__link--active > span.md-ellipsis {
+    color: #2196f3 !important; /* Blue color for light mode */
+    font-weight: 700 !important;
+    text-shadow: 0 0 3px rgba(33, 150, 243, 0.6), 0 0 5px rgba(33, 150, 243, 0.4);
+    transition: all 0.3s ease;
+}
+
+[data-md-color-scheme="slate"] .md-nav__link--active > span.md-ellipsis {
+    color: #64b5f6 !important; /* Lighter blue for dark mode for better contrast */
+    font-weight: 700 !important;
+    text-shadow: 0 0 3px rgba(100, 181, 246, 0.7), 0 0 7px rgba(100, 181, 246, 0.5);
+    transition: all 0.3s ease;
+}

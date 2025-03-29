@@ -1,0 +1,126 @@
+/* Material Icons Standardization */
+
+/* Base icon styling */
+.md-icon {
+  vertical-align: middle;
+}
+
+/* Size classes */
+.lg {
+  font-size: 1.5rem !important;
+}
+
+.md {
+  font-size: 1.2rem !important;
+}
+
+.sm {
+  font-size: 1rem !important;
+}
+
+/* Vertical alignment */
+.middle {
+  vertical-align: middle !important;
+}
+
+.top {
+  vertical-align: top !important;
+}
+
+.bottom {
+  vertical-align: bottom !important;
+}
+
+/* Status colors */
+.success {
+  color: #4caf50 !important; /* Material Design green */
+}
+
+.warning {
+  color: #ff9800 !important; /* Material Design orange */
+}
+
+.error, .failure {
+  color: #f44336 !important; /* Material Design red */
+}
+
+.info {
+  color: #2196f3 !important; /* Material Design blue */
+}
+
+/* Material Design color palette for icons */
+.md-color--red {
+  color: #f44336 !important;
+}
+
+.md-color--pink {
+  color: #e91e63 !important;
+}
+
+.md-color--purple {
+  color: #9c27b0 !important;
+}
+
+.md-color--deep-purple {
+  color: #673ab7 !important;
+}
+
+.md-color--indigo {
+  color: #3f51b5 !important;
+}
+
+.md-color--blue {
+  color: #2196f3 !important;
+}
+
+.md-color--light-blue {
+  color: #03a9f4 !important;
+}
+
+.md-color--cyan {
+  color: #00bcd4 !important;
+}
+
+.md-color--teal {
+  color: #009688 !important;
+}
+
+.md-color--green {
+  color: #4caf50 !important;
+}
+
+.md-color--light-green {
+  color: #8bc34a !important;
+}
+
+.md-color--lime {
+  color: #cddc39 !important;
+}
+
+.md-color--yellow {
+  color: #ffeb3b !important;
+}
+
+.md-color--amber {
+  color: #ffc107 !important;
+}
+
+.md-color--orange {
+  color: #ff9800 !important;
+}
+
+.md-color--deep-orange {
+  color: #ff5722 !important;
+}
+
+.md-color--brown {
+  color: #795548 !important;
+}
+
+.md-color--grey {
+  color: #9e9e9e !important;
+}
+
+.md-color--blue-grey {
+  color: #607d8b !important;
+}

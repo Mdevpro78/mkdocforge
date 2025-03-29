@@ -1,0 +1,119 @@
+@startuml System Architecture
+
+' Dark mode theme settings
+!include https://raw.githubusercontent.com/patrik-csak/one-dark-plantuml-theme/v1.0.1/theme.puml
+
+' Override default theme settings for better dark mode
+skinparam backgroundColor #282c34
+skinparam defaultTextAlignment center
+skinparam noteTextAlignment left
+skinparam ArrowColor #abb2bf
+skinparam NoteBorderColor #61afef
+skinparam NoteBackgroundColor #2c323c
+skinparam NoteFontColor #abb2bf
+skinparam Nodesep 100
+skinparam Ranksep 100
+skinparam Dpi 96
+skinparam PageMargin 150
+skinparam BoxPadding 150
+
+' Define custom styles for dark mode
+skinparam rectangle {
+  roundCorner 20
+  BackgroundColor #2c323c
+  BorderColor #61afef
+  FontColor #abb2bf
+  BorderThickness 1
+  Margin 100
+  Padding 100
+}
+
+skinparam legend {
+  BackgroundColor #2c323c
+  BorderColor #61afef
+  FontColor #abb2bf
+}
+
+' Color scheme for dark mode
+!$CONTAINER_BG = "3b4252"
+!$NETWORK_BG = "2e3440"
+!$VM_BG = "2c323c"
+!$CLIENT_BG = "3b4252"
+!$AUTH_COLOR = "e06c75"
+!$LINK_BLUE = "61afef"
+!$LINK_GREEN = "98c379"
+!$LINK_ORANGE = "e5c07b"
+!$LINK_PURPLE = "c678dd"
+!$NOTE_BLUE = "2b4255"
+!$NOTE_GREEN = "2d3d2e"
+!$NOTE_YELLOW = "3d3c2e"
+
+!define RECTANGLE class
+!define DATABASE database
+!define CLOUD cloud
+
+skinparam componentStyle uml2
+skinparam style strictuml
+
+rectangle "Frontend" {
+  [Web Application] as WebApp
+  [Mobile App] as MobileApp
+  [Admin Dashboard] as AdminDash
+}
+
+rectangle "Backend" {
+  [API Gateway] as APIGateway
+  [URL Service] as URLService
+  [User Service] as UserService
+  [Analytics Service] as AnalyticsService
+  [Rate Limiter] as RateLimiter
+}
+
+database "Database" {
+  [URL Repository] as URLRepo
+  [User Repository] as UserRepo
+  [Analytics Repository] as AnalyticsRepo
+}
+
+cloud "Cache" {
+  [Redis Cluster] as RedisCache
+}
+
+WebApp --> APIGateway
+MobileApp --> APIGateway
+AdminDash --> APIGateway
+
+APIGateway --> URLService
+APIGateway --> UserService
+APIGateway --> AnalyticsService
+APIGateway --> RateLimiter
+
+URLService --> URLRepo
+URLService --> RedisCache
+UserService --> UserRepo
+AnalyticsService --> AnalyticsRepo
+AnalyticsService --> RedisCache
+
+note left of APIGateway
+  Handles authentication,
+  request routing, and
+  rate limiting
+end note
+
+note top of RedisCache
+  Stores frequently accessed URLs
+  to reduce database load and
+  improve redirection performance
+end note
+
+note bottom of URLService
+  Core service for URL shortening
+  and redirection operations
+end note
+
+note bottom of AnalyticsService
+  Tracks and processes URL usage
+  metrics and user interactions
+end note
+
+@enduml
