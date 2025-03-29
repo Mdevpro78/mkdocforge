@@ -3,7 +3,8 @@
 	docker-logs docker-ps \
 	docker-down docker-restart \
 	docker-rebuild  \
-	diff branch-from
+	diff branch-from \
+	set-upstream-feature-branches
 
 # Docker Compose Makefile commands
 COMPOSE_FILE = docker-compose.yml
@@ -89,3 +90,11 @@ branch-from:
 	@echo "Creating new branch '$(DEST)' from '$(SOURCE)'..."
 	@git checkout -b $(DEST) $(SOURCE)
 	@echo "Local branch '$(DEST)' created successfully from '$(SOURCE)'."
+
+# Set upstream of all feature/* branches to origin/develop
+set-upstream-feature-branches:
+	@git for-each-ref --format='%(refname:short)' refs/heads/feature/ | while read branch; do \
+			echo "Setting upstream for $$branch to origin/develop..."; \
+			git branch --set-upstream-to=origin/develop "$$branch" || echo "Failed to set upstream for $$branch"; \
+	done
+	@echo "Done setting upstreams for feature branches."
