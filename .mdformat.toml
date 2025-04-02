@@ -32,5 +32,5 @@ plugin.black.line_length = 88
 
 plugin.ruff.enable = true
 plugin.ruff.line_length = 88
-plugin.ruff.select = ["E", "F", "W"]
-plugin.ruff.ignore = ["ANN101"]
+plugin.ruff.select = [ "E", "F", "W" ]
+plugin.ruff.ignore = [ "ANN101" ]

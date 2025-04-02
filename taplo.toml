@@ -1,0 +1,26 @@
+[formatting]
+# Controls whether to reorder keys when formatting
+reorder_keys = false
+
+# Indentation settings
+indent_string = "  " # Use 2 spaces for indentation
+indent_tables = true
+
+# Column width settings
+column_width = 80
+array_auto_collapse = false
+array_auto_expand = false
+
+# Trailing commas and newlines
+array_trailing_comma = true
+inline_table_trailing_comma = false
+crlf = false
+
+# Alignment settings
+align_entries = false
+align_comments = false
+
+# Array formatting
+compact_arrays = false
+compact_inline_tables = false
+compact_entries = false

@@ -1,0 +1,52 @@
+@startuml Analytics Tracking
+
+' Dark mode theme settings
+!include https://raw.githubusercontent.com/patrik-csak/one-dark-plantuml-theme/v1.0.1/theme.puml
+
+' Override default theme settings for better dark mode
+skinparam backgroundColor #282c34
+skinparam defaultTextAlignment center
+skinparam noteTextAlignment left
+skinparam ArrowColor #abb2bf
+skinparam NoteBorderColor #61afef
+skinparam NoteBackgroundColor #2c323c
+skinparam NoteFontColor #abb2bf
+skinparam Nodesep 100
+skinparam Ranksep 100
+skinparam Dpi 96
+skinparam PageMargin 150
+skinparam BoxPadding 150
+
+start
+
+:Client requests shortened URL;
+
+:API Gateway receives request;
+
+:URL Service processes redirection;
+
+:Analytics Service receives click event;
+
+fork
+  :Extract request metadata (IP, User-Agent, Referrer);
+  :Determine geolocation from IP;
+  :Parse User-Agent for device/browser info;
+fork again
+  :Increment click counter for URL;
+  :Update last accessed timestamp;
+end fork
+
+:Create Analytics record;
+
+:Save Analytics data to repository;
+
+fork
+  :Update real-time metrics in cache;
+fork again
+  :Queue for batch processing;
+end fork
+
+:Return redirection response to user;
+
+stop
+@enduml
