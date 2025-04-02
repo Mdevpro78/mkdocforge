@@ -1,19 +1,20 @@
 ---
-# [ADR Number]: [Short Title of Decision]
-
-| Metadata        | Value                                   |
-| :-------------- | :-------------------------------------- |
-| **Status:**     | :material-check-circle:{ .md-color--green } Proposed / :material-check-circle:{ .md-color--green } Accepted / :material-alert-circle:{ .md-color--orange } Deprecated / :material-close-circle:{ .md-color--red } Superseded |
-| **Deciders:**   | [List of people involved in the decision] |
-| **Date:**       | [YYYY-MM-DD]                            |
-| **Supersedes:** | [ADR Number] (if applicable)             |
-| **Superseded by:**| [ADR Number] (if applicable)             |
-| **Related:**    | [Links to related ADRs, issues, PRs]    |
-| **Drivers:**    | [Technical, Business] (See Drivers section) |
-| **Objectives:** | [See Objectives section]                 |
-| **Constraints:**| [See Constraints section]                |
-| **Access Hub:** | [:material-link: Link to Access Hub File](path/to/access_hub.md) (if applicable) |
+title: '[ADR Number]: [Short Title of Decision]'
+status: proposed    # proposed, accepted, deprecated, superseded
+deciders: '[List of people involved in the decision]'
+date: '[YYYY-MM-DD]'
+supersedes: '[ADR Number] (if applicable)'
+superseded_by: '[ADR Number] (if applicable)'
+related: '[Links to related ADRs, issues, PRs]'
+drivers: '[Technical, Business] (See Drivers section)'
+objectives: '[See Objectives section]'
+constraints: '[See Constraints section]'
+access_hub: '[:material-link: Link to Access Hub File](path/to/access_hub.md) (if applicable)'
 ---
+
+## \[ADR Number\]: [Short Title of Decision]
+
+**Status:** :material-check-circle:{ .md-color--green } Proposed / :material-check-circle:{ .md-color--green } Accepted / :material-alert-circle:{ .md-color--orange } Deprecated / :material-close-circle:{ .md-color--red } Superseded
 
 ## Context and Problem Statement
 

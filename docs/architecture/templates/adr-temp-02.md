@@ -1,26 +1,28 @@
 ---
 title: 'ADR-NNN: Title of the Decision'
-status: proposed | accepted | rejected | deprecated | superseded by ADR-XXX
+status: proposed # proposed, accepted, rejected, deprecated, superseded by ADR-XXX
 date: YYYY-MM-DD
 author: Name <email@example.com>
 tags: [tag1, tag2]
+id: ADR-NNN
+descriptive_title: Concise descriptive title
+authors: Names of authors
+approvers: Names of approvers
 ---
 
 ## :memo: ADR-NNN: Title of the Decision
 
 ## :bookmark_tabs: Metadata
 
-| Item         | Value                                                        |
-| ------------ | ------------------------------------------------------------ |
-| ID           | ADR-NNN                                                      |
-| Title        | Concise descriptive title                                    |
-| Status       | Proposed \| Accepted \| Rejected \| Deprecated \| Superseded |
-| Date         | YYYY-MM-DD                                                   |
-| Authors      | Names of authors                                             |
-| Approvers    | Names of approvers                                           |
-| Stakeholders | Key stakeholders affected by this decision                   |
-| Related      | ADR-XXX, ADR-YYY                                             |
-| Supersedes   | ADR-ZZZ (if applicable)                                      |
+- **ID:** {{ page.meta.id }}
+- **Title:** {{ page.meta.descriptive_title }}
+- **Status:** {{ page.meta.status }}
+- **Date:** {{ page.meta.date }}
+- **Authors:** {{ page.meta.authors }}
+- **Approvers:** {{ page.meta.approvers }}
+- **Stakeholders:** Key stakeholders affected by this decision
+- **Related:** ADR-XXX, ADR-YYY
+- **Supersedes:** ADR-ZZZ (if applicable)
 
 ## :dart: Executive Summary
 
