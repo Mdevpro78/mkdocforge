@@ -7,7 +7,7 @@ on:
     paths:
       - 'docs/**'
       - 'mkdocs.yml'
-      - '.github/workflows/ci-cd.yml'
+      - '.github/workflows/site.yml'
       - 'pyproject.toml'
       - 'Makefile'
   pull_request:
@@ -51,9 +51,11 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    needs: build-lint
+    needs: lint-docs
     runs-on: ubuntu-24.04
     permissions:
+      pages: write
+      id-token: write
       contents: write
     steps:
       - name: Checkout repository
@@ -78,7 +80,7 @@ jobs:
           make uv_sync_docs
 
       - name: Build documentation
-        run: make uv_mkdoc_build
+        run: make uv_mkdocs_build
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
