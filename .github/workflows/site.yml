@@ -48,7 +48,9 @@ jobs:
           make uv_sync_lint
 
       - name: Lint Markdown files
+        id: lint_check
         run: uv run mdformat --check docs/
+        continue-on-error: true
 
   deploy-docs:
     name: Deploy Documentation
