@@ -8,6 +8,7 @@ on:
       - 'docs/**'
       - 'mkdocs.yml'
       - '.github/workflows/site.yml'
+      - '.mdformat.toml'
       - 'pyproject.toml'
       - 'Makefile'
   pull_request:
@@ -15,6 +16,7 @@ on:
       - main
     paths:
       - 'docs/**'
+      - '.mdformat.toml'
       - 'mkdocs.yml'
       - 'pyproject.toml'
       - 'Makefile'
