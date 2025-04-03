@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - 'docs/**'
+      - 'scripts/install_doxygen.sh'
       - 'mkdocs.yml'
       - '.github/workflows/site.yml'
       - '.mdformat.toml'
@@ -16,6 +17,7 @@ on:
       - main
     paths:
       - 'docs/**'
+      - 'scripts/install_doxygen.sh'
       - '.mdformat.toml'
       - 'mkdocs.yml'
       - 'pyproject.toml'
@@ -48,8 +50,14 @@ jobs:
 
       - name: Lint Markdown files
         id: lint_check
-        run: uv run mdformat --check docs/
+        run: uv run mdformat --check ${PWD}/docs/
         continue-on-error: true
+
+      - name: Check if linting failed
+        if: steps.lint_check.outcome == 'failure'
+        run: |
+          echo "::warning::Markdown linting failed. Run 'uv run mdformat docs/' locally to fix formatting issues."
+          # Don't fail the workflow, but provide clear warning
 
   deploy-docs:
     name: Deploy Documentation
@@ -76,7 +84,7 @@ jobs:
       - name: Setup UV
         uses: astral-sh/setup-uv@v5
         with:
-          version: latest
+          version: "latest"
           enable-cache: true
 
       - name: Install dependencies
@@ -84,10 +92,13 @@ jobs:
           rm -f uv.lock
           make uv_sync_docs
 
+      - name: Configure Git user
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+
       - name: Install Doxygen
-        uses: mattnotmitt/doxygen-action@v1.9.5
-        with:
-          working-directory: ./
+        run: sudo bash ${PWD}/scripts/install_doxygen.sh
 
       - name: Build documentation
         run: make uv_mkdocs_build
