@@ -65,6 +65,36 @@ make uv_mkdoc_serve
 uv run mkdocs serve
 ```
 
+### Using Docker
+
+MkDocForge can be easily run using Docker:
+
+```bash
+# Build the Docker image
+make docker-build
+
+# Start the container
+make docker-up
+
+# View logs
+make docker-logs
+
+# Stop the container
+make docker-down
+```
+
+Alternatively, you can use Docker Compose directly:
+
+```bash
+# Build and start in one command
+docker compose up
+
+# Or build and start in detached mode
+docker compose up -d
+```
+
+Once running, access the documentation at [http://localhost:8000](http://localhost:8000).
+
 ## 📁 Project Structure
 
 ```
