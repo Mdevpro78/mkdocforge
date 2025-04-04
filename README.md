@@ -99,7 +99,7 @@ Once running, access the documentation at [http://localhost:8000](http://localho
 
 ```
 .
-├── docs/                   # Documentation source files
+├── docs/                  # Documentation source files
 │   ├── architecture/      # Architecture decision records
 │   ├── blog/              # Blog posts
 │   ├── examples/          # Example configurations and code
