@@ -97,8 +97,19 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
 
+      - name: Cache Doxygen
+        id: cache-doxygen
+        uses: actions/cache@v4
+        with:
+          path: /usr/local/bin/doxygen
+          key: ${{ runner.os }}-doxygen-${{ hashFiles('scripts/install_doxygen.sh') }}
+          
       - name: Install Doxygen
+        if: steps.cache-doxygen.outputs.cache-hit != 'true'
         run: sudo bash ${PWD}/scripts/install_doxygen.sh
+        
+      - name: Verify Doxygen Installation
+        run: doxygen --version
 
       - name: Build documentation
         run: make uv_mkdocs_build
