@@ -56,9 +56,9 @@ jobs:
       - name: Check if linting failed
         if: steps.lint_check.outcome == 'failure'
         run: |
-          echo "::warning::Markdown linting failed. Run 'uv run mdformat docs/' locally to fix formatting issues."
+          echo "::warning::Markdown linting failed. Run 'uv run mdformat docs/' locally to fix"
+          echo "::warning::formatting issues."
           # Don't fail the workflow, but provide clear warning
-
   deploy-docs:
     name: Deploy Documentation
     environment:
@@ -103,11 +103,11 @@ jobs:
         with:
           path: /usr/local/bin/doxygen
           key: ${{ runner.os }}-doxygen-${{ hashFiles('scripts/install_doxygen.sh') }}
-          
+
       - name: Install Doxygen
         if: steps.cache-doxygen.outputs.cache-hit != 'true'
         run: sudo bash ${PWD}/scripts/install_doxygen.sh
-        
+
       - name: Verify Doxygen Installation
         run: doxygen --version
 
