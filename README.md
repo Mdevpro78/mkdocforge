@@ -45,7 +45,7 @@ MkDocForge addresses common documentation challenges by providing:
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/mkdocforge.git
+git clone https://github.com/Mdevpro78/mkdocforge
 cd mkdocforge
 
 # Install dependencies using UV (recommended)
@@ -136,6 +136,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 🔗 Links
 
 - [Repository](https://github.com/Mdevpro78/mkdocforge)
-- [Documentation](https://mdevpro78.github.io/mkdocforge/)
+- [Visit Documentation](https://mdevpro78.github.io/mkdocforge/)
 - [MkDocs Official Site](https://www.mkdocs.org/)
 - [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/)
