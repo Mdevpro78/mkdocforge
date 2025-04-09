@@ -98,3 +98,12 @@ set-upstream-feature-branches:
 			git branch --set-upstream-to=origin/develop "$$branch" || echo "Failed to set upstream for $$branch"; \
 	done
 	@echo "Done setting upstreams for feature branches."
+
+# setting up executable permissions for shell scripts
+set-script-permissions:
+	@echo "Setting up executable permissions for shell scripts..."
+	@find scripts base_vm/scripts -name "*.sh" -type f -exec git update-index --chmod=+x {} \;
+	@echo "Adding executable files to git..."
+	@git add --chmod=+x scripts/*.sh base_vm/scripts/*.sh 2>/dev/null || true
+	@echo "Shell script permissions fixed. Run 'git status' to see changes."
+	@echo "Note: If any script is missing a shebang, add '#!/bin/bash' as the first line."
