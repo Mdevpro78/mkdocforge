@@ -219,6 +219,7 @@ nav:
       - Overview: developement-hub.md
       - Git:
           - Git Workflow Guide: git/git-workflow-guide.md
+          - Git Flow Guide: git/gitflow-guide.md
       - Python:
           - Rye: python/rye_commands.md
           - MyPy Configuration Guide: python/mypy-configuration-guide.md
